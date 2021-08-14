@@ -1,0 +1,28 @@
+<h1>{{name}}</h1>
+<h4>Nationality: {{nationality}}</h4>
+<hr />
+{{!-- {{#with location}}
+      <strong>Located in {{city}}, {{country}}</strong>
+    {{/with}} --}}
+<strong>Located in {{location.city}}, {{location.country}}</strong>
+<ul>
+  {{! Iterating over array of pets }}
+  {{#each pets}}
+    <li>
+      {{! If we want to output a value at the root of the data object, we need to use @root }}
+      <span>{{name}} is owned by {{@root.name}}.</span>
+      {{! Conditional block }}
+      {{#if isWellBehaved}}
+        <span>{{name}} is a well behaved {{species}}.</span>
+      {{else}}
+        <span>{{name}} is a bad {{species}}.</span>
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
+<p>
+  {{name}}'s favorite beverages are
+  {{#each favoriteBeverages}}
+    {{this}}{{#unless @last}},{{/unless}}
+  {{/each}}.
+</p>
