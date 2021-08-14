@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+}
+
+nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1em 0;
+  margin-right: 1em;
+}
+
+.movie {
+  max-width: 10em;
+}
+
+.movie-list {
+  display: flex;
+  gap: 1em;
+}

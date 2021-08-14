@@ -2,8 +2,8 @@
 <h4>Nationality: {{nationality}}</h4>
 <hr />
 {{!-- {{#with location}}
-      <strong>Located in {{city}}, {{country}}</strong>
-    {{/with}} --}}
+  <strong>Located in {{city}}, {{country}}</strong>
+{{/with}} --}}
 <strong>Located in {{location.city}}, {{location.country}}</strong>
 <ul>
   {{! Iterating over array of pets }}
@@ -17,6 +17,12 @@
       {{else}}
         <span>{{name}} is a bad {{species}}.</span>
       {{/if}}
+      {{!-- This cannot be done as JavaScript expressions are not evaluated by handlebars --}}
+      {{!-- {{#if species}}
+        <span>Pet is a dog.</span>
+        {{else if species === 'cat'}}
+        <span>Pet is a cat.</span>
+      {{/if}} --}}
     </li>
   {{/each}}
 </ul>
@@ -26,3 +32,8 @@
     {{this}}{{#unless @last}},{{/unless}}
   {{/each}}.
 </p>
+<div class="movie-list">
+  {{#each favoriteMovies}}
+    {{>movie}}
+  {{/each}}
+</div>
