@@ -1,0 +1,15 @@
+<h1>{{movie.Title}}</h1>
+<span><strong>Released: </strong> {{movie.Released}}</span>
+<span><strong>Runtime: </strong> {{movie.Runtime}}</span>
+
+<img src='{{movie.Poster}}' alt='{{movie.Title}}' />
+
+<h5>Plot</h5>
+<p>{{movie.Plot}}</p>
+
+<h5>Ratings</h5>
+<ul>
+  {{#each movie.Ratings}}
+    <li><strong>{{Source}}</strong>: {{Value}}</li>
+  {{/each}}
+</ul>

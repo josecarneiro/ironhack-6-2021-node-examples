@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  max-width: 50em;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie-list .movie {
+  max-width: 25%;
+  padding: 0.5em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav a {
+  padding: 1em 0;
+  display: inline-block;
+}
+
+form label {
+  display: block;
+}
+
+form {
+  max-width: 20em;
+  margin: auto;
+}
+
+input,
+button {
+  color: inherit;
+  font: inherit;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  padding: 0.5em;
+}
