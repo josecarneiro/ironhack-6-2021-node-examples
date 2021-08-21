@@ -1,0 +1,17 @@
+{
+  "name": "node-express-environment-variables",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js -e js,hbs,css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

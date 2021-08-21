@@ -5,6 +5,19 @@ const app = express();
 // URL
 // PROTOCOL://ORIGIN/PATH?QUERY
 
+/*
+// Request Query
+// We can pass arbitrary values
+URL that the user visits: http://localhost:3000/?foo=bar&name=stefano
+Path we set on the route handler: /
+request.query // { foo: 'bar', name: 'stefano' }
+
+// Request Params
+URL that the user visits: http://localhost:3000/stefano/post-123/comment-123
+Path we set on the route handler: /:username/:postId/:commentId
+request.params // { username: 'stefano', postId: 'post-123', commentId: 'comment-123' }
+*/
+
 app.get('/', (request, response) => {
   // Request query
   // Request query is a set of key value pairs that can be passed through the request URL
