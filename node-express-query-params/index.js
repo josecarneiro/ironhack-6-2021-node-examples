@@ -18,6 +18,8 @@ Path we set on the route handler: /:username/:postId/:commentId
 request.params // { username: 'stefano', postId: 'post-123', commentId: 'comment-123' }
 */
 
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', (request, response) => {
   // Request query
   // Request query is a set of key value pairs that can be passed through the request URL
@@ -46,6 +48,17 @@ app.get('/search', (request, response) => {
 
 app.get('/results', (request, response) => {
   response.send(request.query.term);
+});
+
+app.get('/contact', (request, response) => {
+  console.log(request.query);
+  response.sendFile(__dirname + '/views/contact.html');
+});
+
+app.post('/handle-contact', (request, response) => {
+  console.log(request.body);
+  // response.sendFile(__dirname + '/views/contact.html');
+  response.redirect('/');
 });
 
 app.listen(3000);

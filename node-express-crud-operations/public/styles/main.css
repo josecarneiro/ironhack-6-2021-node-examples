@@ -1,0 +1,14 @@
+body {
+  font-family: sans-serif;
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin-bottom: 1em;
+}

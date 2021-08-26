@@ -13,45 +13,61 @@ const MONGODB_URI = 'mongodb://localhost:27017/library';
 // };
 
 // Book Schema
-const bookSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    minlength: 3,
-    maxlength: 140,
-    required: true // This is not a validator
-  },
-  author: {
-    type: String,
-    required: true
-  },
-  pages: {
-    type: Number,
-    min: 1,
-    max: 10000,
-    required: true
-  },
-  condition: {
-    type: String,
-    enum: ['new', 'used'],
-    required: true
-  },
-  genres: [
-    {
+const bookSchema = new mongoose.Schema(
+  {
+    title: {
       type: String,
-      enum: ['science', 'education', 'romance', 'drama', 'fantasy']
+      minlength: 3,
+      maxlength: 140,
+      required: true // This is not a validator
+    },
+    author: {
+      type: String,
+      required: true
+    },
+    pages: {
+      type: Number,
+      min: 1,
+      max: 10000,
+      required: true
+    },
+    condition: {
+      type: String,
+      enum: ['new', 'used'],
+      required: true
+    },
+    genres: [
+      {
+        type: String,
+        enum: ['science', 'education', 'romance', 'drama', 'fantasy']
+      }
+    ],
+    isbn: {
+      type: String,
+      minlength: 10,
+      maxlength: 13,
+      required: true
+    },
+    available: {
+      type: Boolean,
+      required: true
     }
-  ],
-  isbn: {
-    type: String,
-    minlength: 10,
-    maxlength: 13,
-    required: true
+    // created: {
+    //   type: Date,
+    //   default: () => new Date()
+    // },
+    // created: {
+    //   type: Date,
+    //   default: Date.now
+    // }
   },
-  available: {
-    type: Boolean,
-    required: true
+  {
+    timestamps: {
+      createdAt: 'creationDate',
+      updatedAt: 'editingDate'
+    }
   }
-});
+);
 
 const Book = mongoose.model('Book', bookSchema);
 
