@@ -1,0 +1,56 @@
+$grey-color: #1f1f1f;
+$common-padding: 1em;
+
+@mixin text-reset {
+  font: inherit;
+  color: inherit;
+}
+
+@mixin absolute-take-entire-page($distance: 0) {
+  position: absolute;
+  top: $distance;
+  right: $distance;
+  bottom: $distance;
+  left: $distance;
+}
+
+form {
+  @include absolute-take-entire-page;
+  display: flex;
+  flex-direction: column;
+  input {
+    margin-bottom: $common-padding;
+  }
+  label {
+    margin-bottom: 0.5em;
+  }
+}
+
+input,
+button,
+.btn {
+  @include text-reset;
+  padding: $common-padding;
+  border: 0.25em;
+  margin-bottom: 1em;
+}
+
+input {
+  @include absolute-take-entire-page(1em);
+  border: 1px solid lightgrey;
+  color: $grey-color;
+}
+
+button,
+.btn {
+  display: block;
+  background: $grey-color;
+  color: white;
+  text-align: center;
+}
+
+// Import contents of other file: @import 'filename';
+// Declare mixin: @mixin mixin-name { ... };
+// Use mixin: @include mixin-name;
+// Declare variable: $variable-name: value;
+// Use variable: $variable-name;
