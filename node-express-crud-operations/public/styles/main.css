@@ -12,3 +12,40 @@ form {
 form input {
   margin-bottom: 1em;
 }
+
+form label {
+  margin-bottom: 0.5em;
+}
+
+input,
+button,
+.btn {
+  font: inherit;
+  color: inherit;
+  padding: 1em;
+  border: 0.25em;
+  margin-bottom: 1em;
+}
+
+input {
+  border: 1px solid lightgrey;
+}
+
+button,
+.btn {
+  display: block;
+  background: #1f1f1f;
+  color: white;
+  text-align: center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav a {
+  display: inline-block;
+  padding: 1em 0;
+  margin-right: 1em;
+}

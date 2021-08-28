@@ -1,4 +1,9 @@
 <h1>{{publication.title}}</h1>
-<span>{{publication.url}}</span>
+<a href='{{publication.url}}'>Visit Resource</a>
 <br />
 <span>{{publication.publishingDate}}</span>
+<a class='btn' href='/publication/{{publication._id}}/edit'>Update Publication</a>
+
+<form method='POST' action='/publication/{{publication._id}}/delete'>
+  <button type='submit'>Delete Publication</button>
+</form>

@@ -1,8 +1,5 @@
 <h1>Home View</h1>
 
 {{#each publications}}
-  <a href='/publication/{{_id}}'>
-    <h3>{{title}}</h3>
-  </a>
-  <span>{{url}}</span>
+  {{> publication}}
 {{/each}}

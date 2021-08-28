@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const hbs = require('hbs');
 const mongoose = require('mongoose');
@@ -28,7 +30,7 @@ app.get('/publish', (request, response) => {
   response.render('publish');
 });
 
-app.post('/publish', (request, response) => {
+app.post('/publish', (request, response, next) => {
   const title = request.body.title;
   const url = request.body.url;
   // const { title, url } = request.body;
@@ -44,7 +46,7 @@ app.post('/publish', (request, response) => {
     });
 });
 
-app.get('/publication/:id', (request, response) => {
+app.get('/publication/:id', (request, response, next) => {
   const id = request.params.id;
   Publication.findById(id)
     .then((publication) => {
@@ -55,27 +57,54 @@ app.get('/publication/:id', (request, response) => {
     });
 });
 
-app.get('/error', (request, response) => {
-  response.render('error');
+app.get('/publication/:id/edit', (request, response, next) => {
+  const id = request.params.id;
+  Publication.findById(id)
+    .then((publication) => {
+      response.render('publication-edit', { publication });
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
-app.get('*', (request, response) => {
-  response.render('error');
+app.post('/publication/:id/edit', (request, response, next) => {
+  const id = request.params.id;
+  const title = request.body.title;
+  const url = request.body.url;
+  Publication.findByIdAndUpdate(id, { title, url })
+    .then(() => {
+      response.redirect(`/publication/${id}`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+app.post('/publication/:id/delete', (request, response, next) => {
+  const id = request.params.id;
+  Publication.findByIdAndDelete(id)
+    .then(() => {
+      response.redirect(`/`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+app.get('*', (request, response, next) => {
+  next(new Error('NOT_FOUND'));
 });
 
 // Catch all error handler
+// Express knows this is a catch all error handler because it takes 4 parameters
 app.use((error, request, response, next) => {
+  console.log(error);
   response.render('error');
 });
 
-const MONGODB_URI = 'mongodb://localhost:27017/cruder';
+const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose
-  .connect(MONGODB_URI, {
-    // useNewUrlParser: true,
-    // useCreateIndex: true,
-    // useUnifiedTopology: true
-  })
-  .then(() => {
-    app.listen(3000);
-  });
+mongoose.connect(MONGODB_URI).then(() => {
+  app.listen(3000);
+});
