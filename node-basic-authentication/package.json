@@ -1,0 +1,36 @@
+{
+  "name": "node-basic-authentication",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server",
+    "dev": "nodemon ./server",
+    "dev:debug": "DEBUG=node-basic-authentication* npm run dev",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.5.0",
+    "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "hbs": "^4.1.1",
+    "http-errors": "^1.8.0",
+    "mongoose": "^5.6.13",
+    "morgan": "^1.10.0",
+    "node-sass-middleware": "^0.11.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "prettier": "^2.2.1"
+  }
+}
