@@ -1,4 +1,18 @@
-<a href='/publication/{{_id}}'>
-  <h3>{{title}}</h3>
-</a>
-<a href='{{url}}' target='_blank'>Visit Resource</a>
+<article class='publication-item'>
+  <aside>
+    <strong>{{score}}</strong>
+    <form method='POST' action='/publication/{{_id}}/vote'>
+      <button>
+        ⬆️
+      </button>
+    </form>
+  </aside>
+  <section>
+    <a href='/publication/{{_id}}'>
+      <h3>{{title}}</h3>
+      <span>{{creator.name}}</span>
+    </a>
+    <br />
+    <a href='{{url}}' target='_blank'>Visit Resource</a>
+  </section>
+</article>

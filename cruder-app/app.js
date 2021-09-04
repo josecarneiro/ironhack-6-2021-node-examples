@@ -1,11 +1,15 @@
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const hbs = require('hbs');
+const morgan = require('morgan');
 const nodeSassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
-const morgan = require('morgan');
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo');
 const Publication = require('./models/publication');
-const publicationRouter = require('./routers/publication');
+const baseRouter = require('./routes/index');
+const publicationRouter = require('./routes/publication');
+const userDeserializerMiddleware = require('./middleware/user-deserializer');
 
 const app = express();
 
@@ -15,8 +19,6 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(serveFavicon(path.join(__dirname, 'public/favicon.ico')));
-app.use(express.static('public'));
-app.use(morgan('dev'));
 app.use(
   nodeSassMiddleware({
     dest: path.join(__dirname, 'public/styles'),
@@ -26,11 +28,33 @@ app.use(
     prefix: '/styles'
   })
 );
+app.use(express.static('public'));
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: true,
+    cookie: {
+      maxAge: 15 * 24 * 60 * 60 * 1000 // 15 days
+    },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      ttl: 60 * 60
+    })
+  })
+);
+
+app.use(userDeserializerMiddleware);
 
 app.get('/', (request, response, next) => {
   Publication.find({})
+    .sort({ publishingDate: -1 })
+    .limit(20)
+    .populate('creator')
     .then((publications) => {
+      console.log(publications);
       response.render('home', { publications });
     })
     .catch((error) => {
@@ -38,6 +62,7 @@ app.get('/', (request, response, next) => {
     });
 });
 
+app.use('/', baseRouter);
 app.use('/publication', publicationRouter);
 
 app.all('*', (request, response, next) => {
@@ -46,14 +71,13 @@ app.all('*', (request, response, next) => {
 
 // Catch all error handler
 // Express knows this is a catch all error handler because it takes 4 parameters
-app.use((error, request, response, next) => {
+app.use((error, req, res, next) => {
   console.log(error);
-  // 200 - Everything okay
-  // 404 - Page not found
-  // 401 - Forbiden
-  // 500 - Unknown server error
-  response.status(error.message === 'NOT_FOUND' ? 404 : 500);
-  response.render('error');
+  res.status(error.status || 500);
+  res.render('error', {
+    message: error.message,
+    error: process.env.NODE_ENV !== 'production' ? error : {}
+  });
 });
 
 module.exports = app;

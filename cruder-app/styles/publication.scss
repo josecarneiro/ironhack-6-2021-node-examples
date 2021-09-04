@@ -1,0 +1,17 @@
+.publication-item {
+  display: flex;
+  aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    margin-right: 1em;
+    strong {
+      font-size: 2em;
+    }
+    button {
+      background: transparent;
+    }
+  }
+}

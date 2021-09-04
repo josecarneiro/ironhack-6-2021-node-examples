@@ -11,6 +11,17 @@ const publicationSchema = new mongoose.Schema(
     url: {
       type: String,
       required: true
+    },
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    },
+    score: {
+      type: Number,
+      required: true,
+      default: 0,
+      min: 0
     }
   },
   {

@@ -12,6 +12,11 @@ const commentSchema = new mongoose.Schema(
       required: true,
       minlength: 3,
       maxlength: 300
+    },
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
     }
   },
   {
