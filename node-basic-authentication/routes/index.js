@@ -1,24 +1,12 @@
 const express = require('express');
 const User = require('./../models/user');
 const bcryptjs = require('bcryptjs');
+const routeGuardMiddleware = require('./../middleware/route-guard');
 
 const router = new express.Router();
 
 router.get('/', (req, res, next) => {
-  console.log(req.session);
-  const userId = req.session.userId;
-  if (userId) {
-    User.findById(userId)
-      .then((user) => {
-        const message = `Hello ${user.email}`;
-        res.render('home', { title: message });
-      })
-      .catch((error) => {
-        next(error);
-      });
-  } else {
-    res.render('home', { title: 'Hello stranger' });
-  }
+  res.render('home');
 });
 
 router.get('/register', (req, res, next) => {
@@ -26,20 +14,24 @@ router.get('/register', (req, res, next) => {
 });
 
 router.post('/register', (req, res, next) => {
+  const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
+  // const { name, email, password } = req.body;
   bcryptjs
     .hash(password, 10)
     .then((passwordHashAndSalt) => {
       return User.create({
+        name,
         email,
         passwordHashAndSalt
       });
     })
     .then((user) => {
       console.log('New user created', user);
+      // Serialing the user
       req.session.userId = user._id;
-      res.redirect('/register');
+      res.redirect('/');
     })
     .catch((error) => {
       next(error);
@@ -79,6 +71,10 @@ router.post('/log-in', (req, res, next) => {
 router.post('/log-out', (req, res, next) => {
   req.session.destroy();
   res.redirect('/');
+});
+
+router.get('/private', routeGuardMiddleware, (req, res, next) => {
+  res.render('private');
 });
 
 module.exports = router;
