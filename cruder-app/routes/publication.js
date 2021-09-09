@@ -2,6 +2,7 @@ const express = require('express');
 const Publication = require('../models/publication');
 const Comment = require('../models/comment');
 const routeGuardMiddleware = require('./../middleware/route-guard');
+const upload = require('./../middleware/file-upload');
 
 const publicationRouter = express.Router();
 
@@ -9,20 +10,30 @@ publicationRouter.get('/create', routeGuardMiddleware, (req, res) => {
   res.render('publish');
 });
 
-publicationRouter.post('/create', routeGuardMiddleware, (req, res, next) => {
-  const { title, url } = req.body;
-  Publication.create({
-    title,
-    url,
-    creator: req.user._id
-  })
-    .then((publication) => {
-      res.redirect('/');
+publicationRouter.post(
+  '/create',
+  routeGuardMiddleware,
+  upload.single('image'),
+  (req, res, next) => {
+    const { title, url } = req.body;
+    let image;
+    if (req.file) {
+      image = req.file.path;
+    }
+    Publication.create({
+      title,
+      url,
+      image,
+      creator: req.user._id
     })
-    .catch((error) => {
-      next(error);
-    });
-});
+      .then((publication) => {
+        res.redirect('/');
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 publicationRouter.get('/:id', (req, res, next) => {
   const id = req.params.id;

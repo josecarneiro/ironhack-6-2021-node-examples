@@ -1,4 +1,4 @@
-<form method='POST'>
+<form method='POST' enctype='multipart/form-data'>
   <label for='input-name'>Your Name</label>
   <input
     id='input-name'
@@ -26,6 +26,9 @@
     required
     minlength='5'
   />
+
+  <label for='input-picture'>Profile Picture</label>
+  <input id='input-picture' type='file' name='picture' accept='image/*' />
 
   <button>Register</button>
 </form>

@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
+  picture: {
+    type: String
+  },
   passwordHashAndSalt: {
     type: String,
     required: true

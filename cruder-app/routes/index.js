@@ -2,28 +2,30 @@ const express = require('express');
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const routeGuardMiddleware = require('../middleware/route-guard');
+const upload = require('../middleware/file-upload');
 
 const router = new express.Router();
-
-router.get('/', (req, res, next) => {
-  res.render('home');
-});
 
 router.get('/register', (req, res, next) => {
   res.render('register');
 });
 
-router.post('/register', (req, res, next) => {
+router.post('/register', upload.single('picture'), (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
   // const { name, email, password } = req.body;
+  let picture;
+  if (req.file) {
+    picture = req.file.path;
+  }
   bcryptjs
     .hash(password, 10)
     .then((passwordHashAndSalt) => {
       return User.create({
         name,
         email,
+        picture,
         passwordHashAndSalt
       });
     })

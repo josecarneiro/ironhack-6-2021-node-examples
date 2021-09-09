@@ -7,6 +7,11 @@
       </button>
     </form>
   </aside>
+  {{#if image}}
+    <figure>
+      <img src='{{image}}' alt='{{title}}' />
+    </figure>
+  {{/if}}
   <section>
     <a href='/publication/{{_id}}'>
       <h3>{{title}}</h3>

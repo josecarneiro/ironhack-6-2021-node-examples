@@ -10,6 +10,12 @@
     <nav>
       <a href='/'>CRUDer</a>
       {{#if user}}
+        <a href='/'>
+          {{#if user.picture}}
+            <img src='{{user.picture}}' alt='{{user.name}}' />
+          {{/if}}
+          {{user.name}}
+        </a>
         <a href='/publication/create'>Create Publication</a>
         <form method='POST' action='/log-out'>
           <button>Log Out</button>

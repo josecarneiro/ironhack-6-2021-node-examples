@@ -1,11 +1,12 @@
 .publication-item {
   display: flex;
+  align-items: center;
   aside {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2em;
+    padding: 1em;
     margin-right: 1em;
     strong {
       font-size: 2em;
@@ -13,5 +14,9 @@
     button {
       background: transparent;
     }
+  }
+  figure {
+    max-width: 4em;
+    max-height: 4em;
   }
 }

@@ -1,11 +1,14 @@
 <h1>Make new publication</h1>
 
-<form method='POST'>
+<form method='POST' enctype='multipart/form-data'>
   <label for='title-input'>Title</label>
   <input id='title-input' type='text' name='title' placeholder='Title' />
 
   <label for='url-input'>Url</label>
   <input id='url-input' type='url' name='url' placeholder='Url' />
+
+  <label for='input-image'>Image</label>
+  <input id='input-image' type='file' name='image' accept='image/*' />
 
   <button>Create Publication</button>
 </form>

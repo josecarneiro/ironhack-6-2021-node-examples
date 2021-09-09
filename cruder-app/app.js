@@ -48,14 +48,14 @@ app.use(
 
 app.use(userDeserializerMiddleware);
 
-app.get('/', (request, response, next) => {
+app.get('/', (req, res, next) => {
   Publication.find({})
     .sort({ publishingDate: -1 })
     .limit(20)
     .populate('creator')
     .then((publications) => {
-      console.log(publications);
-      response.render('home', { publications });
+      // console.log(publications);
+      res.render('home', { publications });
     })
     .catch((error) => {
       next(error);
@@ -65,7 +65,7 @@ app.get('/', (request, response, next) => {
 app.use('/', baseRouter);
 app.use('/publication', publicationRouter);
 
-app.all('*', (request, response, next) => {
+app.all('*', (req, res, next) => {
   next(new Error('NOT_FOUND'));
 });
 

@@ -1,0 +1,15 @@
+<form method='POST' action='/upload-file' enctype='multipart/form-data'>
+  <label for='input-receiver'>File Receiver</label>
+  <input
+    id='input-receiver'
+    type='email'
+    name='receiver'
+    placeholder="Receiver's Email"
+    required
+  />
+
+  <label for='input-attachment'>Attachment</label>
+  <input id='input-attachment' type='file' name='attachment' required />
+
+  <button>Send File</button>
+</form>
