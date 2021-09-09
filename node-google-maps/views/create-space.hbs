@@ -1,0 +1,53 @@
+<style>
+  #space-creation-map {
+    width: 100%;
+    height: 20em;
+  }
+</style>
+
+<div id="space-creation-map"></div>
+
+<form method="POST">
+  <label for="input-name">Name</label>
+  <input id="input-name" type="text" name="name" placeholder="Name" required />
+
+  <input id="input-latitude" name="latitude" required hidden />
+
+  <input id="input-longitude" name="longitude" required hidden />
+
+  <button>Create Space</button>
+</form>
+
+<script>
+  const latitudeInputElement = document.getElementById('input-latitude');
+  const longitudeInputElement = document.getElementById('input-longitude');
+
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById('space-creation-map'), {
+      center: { lat: 38.75, lng: -9.15 },
+      zoom: 10
+    });
+
+    let marker;
+
+    map.addListener('click', (event) => {
+      if (marker) {
+        marker.setMap(null);
+      }
+
+      const latitude = event.latLng.lat();
+      const longitude = event.latLng.lng();
+
+      marker = new google.maps.Marker({
+        position: { lat: latitude, lng: longitude },
+        map: map
+      });
+
+      latitudeInputElement.value = latitude;
+      longitudeInputElement.value = longitude;
+    })
+  }
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyRTqXpFmBnF-VF4P1qRJqMCATqs4dKDg&callback=initMap"></script>

@@ -55,6 +55,23 @@ router.get('/', (req, res, next) => {
   res.render('home', { title: 'Hello World!' });
 });
 
+const fs = require('fs');
+const hbs = require('hbs');
+const handlebars = hbs.handlebars;
+const path = require('path');
+
+const renderHandlebarsTemplate = (file, data) => {
+  return fs.promises
+    .readFile(file, { encoding: 'utf-8' })
+    .then((contents) => {
+      console.log(contents);
+      return handlebars.compile(contents)(data);
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 router.post('/upload-file', upload.single('attachment'), (req, res, next) => {
   const url = req.file.path;
   const receiver = req.body.receiver;
@@ -63,10 +80,16 @@ router.post('/upload-file', upload.single('attachment'), (req, res, next) => {
     attachment: url
   })
     .then((submission) => {
+      return renderHandlebarsTemplate(
+        path.join(__dirname, '..', 'email-templates/sent-file.hbs'),
+        { url }
+      );
+    })
+    .then((html) => {
       return transporter.sendMail({
         to: receiver,
         subject: 'Someone sent you a file',
-        html: `<strong>You can access your file by following <a href="${url}">this link</a>.</strong>`
+        html: html
       });
     })
     .then(() => {

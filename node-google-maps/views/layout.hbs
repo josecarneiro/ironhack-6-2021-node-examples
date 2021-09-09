@@ -11,6 +11,15 @@
   <body>
     <nav>
       <a href='/'>Green Spaces</a>
+      {{#if user}}
+        <a href='/private'>{{user.name}}'s Profile</a>
+        <form action='/authentication/sign-out' method='POST'>
+          <button>Sign Out</button>
+        </form>
+      {{else}}
+        <a href='/authentication/sign-in'>Sign In</a>
+        <a href='/authentication/sign-up'>Sign Up</a>
+      {{/if}}
     </nav>
     {{{body}}}
     <script src='/scripts/script.js'></script>

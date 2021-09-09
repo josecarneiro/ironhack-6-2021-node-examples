@@ -1,26 +1,26 @@
 {
-  "name": "node-file-upload",
+  "name": "node-google-maps",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ./server",
-    "dev": "nodemon ./server -e js,hbs,scss",
-    "dev:debug": "DEBUG=node-file-upload* npm run dev",
+    "dev": "nodemon ./server",
+    "dev:debug": "DEBUG=node-google-maps* npm run dev",
     "lint": "eslint ."
   },
   "dependencies": {
-    "cloudinary": "^1.26.3",
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^3.2.0",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "hbs": "^4.1.1",
+    "hbs-json": "^0.1.1",
     "http-errors": "^1.8.0",
     "mongoose": "^5.6.13",
     "morgan": "^1.10.0",
-    "multer": "^1.4.3",
-    "multer-storage-cloudinary": "^4.0.0",
     "node-sass-middleware": "^0.11.0",
-    "nodemailer": "^6.6.3",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
