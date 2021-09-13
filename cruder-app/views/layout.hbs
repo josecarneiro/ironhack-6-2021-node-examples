@@ -1,30 +1,34 @@
 <html lang='en'>
-  <head>
-    <meta charset='UTF-8' />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Document</title>
-    <link rel='stylesheet' href='/styles/main.css' />
-  </head>
-  <body>
-    <nav>
-      <a href='/'>CRUDer</a>
-      {{#if user}}
-        <a href='/'>
-          {{#if user.picture}}
-            <img src='{{user.picture}}' alt='{{user.name}}' />
-          {{/if}}
-          {{user.name}}
-        </a>
-        <a href='/publication/create'>Create Publication</a>
-        <form method='POST' action='/log-out'>
-          <button>Log Out</button>
-        </form>
-      {{else}}
-        <a href='/log-in'>Log In</a>
-        <a href='/register'>Register</a>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Document</title>
+  <link rel='stylesheet' href='/styles/main.css' />
+</head>
+
+<body>
+  <nav>
+    <a href='/'>CRUDer</a>
+    {{#if user}}
+    <a href='/profile/{{user._id}}'>
+      {{#if user.picture}}
+      <img src='{{user.picture}}' alt='{{user.name}}' />
       {{/if}}
-    </nav>
-    {{{body}}}
-  </body>
+      {{user.name}}
+    </a>
+    <a href='/profile/edit'>Edit Profile</a>
+    <a href='/publication/create'>Create Publication</a>
+    <form method='POST' action='/log-out'>
+      <button>Log Out</button>
+    </form>
+    {{else}}
+    <a href='/log-in'>Log In</a>
+    <a href='/register'>Register</a>
+    {{/if}}
+  </nav>
+  {{{body}}}
+</body>
+
 </html>

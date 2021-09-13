@@ -1,0 +1,9 @@
+<h1>{{ profile.name }}</h1>
+
+{{#each publications}}
+{{> publication}}
+{{/each}}
+
+{{#if ownProfile}}
+<a href="/profile/edit">Edit My Profile</a>
+{{/if}}

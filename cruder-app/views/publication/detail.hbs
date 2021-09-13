@@ -1,0 +1,35 @@
+<h1>{{publication.title}}</h1>
+<span>Published by {{publication.creator.name}}</span>
+<br />
+<a href='{{publication.url}}'>Visit Resource</a>
+<br />
+<span>{{{ date publication.publishingDate }}}</span>
+
+{{#if ownPublication}}
+<a class='btn' href='/publication/{{publication._id}}/edit'>Update Publication</a>
+
+<form method='POST' action='/publication/{{publication._id}}/delete'>
+  <button type='submit'>Delete Publication</button>
+</form>
+{{/if}}
+
+<ul>
+  {{#each comments}}
+  <li>
+    <span>{{message}}</span>
+    <br />
+    <span>{{creator.name}}</span>
+    <br />
+    <span>{{creationDate}}</span>
+  </li>
+  {{/each}}
+</ul>
+
+{{#if user}}
+<form method='POST' action='/publication/{{publication._id}}/comment'>
+  <label for='message-input'>Your Comment</label>
+  <textarea id='message-input' name='message' placeholder='Your Comment'></textarea>
+
+  <button>Publish Comment</button>
+</form>
+{{/if}}

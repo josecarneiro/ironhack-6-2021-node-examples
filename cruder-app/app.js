@@ -6,13 +6,17 @@ const nodeSassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo');
-const Publication = require('./models/publication');
 const baseRouter = require('./routes/index');
+const authenticationRouter = require('./routes/authentication');
 const publicationRouter = require('./routes/publication');
+const profileRouter = require('./routes/profile');
 const userDeserializerMiddleware = require('./middleware/user-deserializer');
 
 const app = express();
 
+hbs.registerHelper('date', (value) => {
+  return `${value.toLocaleDateString()}, ${value.toLocaleTimeString()}`;
+});
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 app.set('view engine', 'hbs');
@@ -48,22 +52,10 @@ app.use(
 
 app.use(userDeserializerMiddleware);
 
-app.get('/', (req, res, next) => {
-  Publication.find({})
-    .sort({ publishingDate: -1 })
-    .limit(20)
-    .populate('creator')
-    .then((publications) => {
-      // console.log(publications);
-      res.render('home', { publications });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
 app.use('/', baseRouter);
+app.use(authenticationRouter);
 app.use('/publication', publicationRouter);
+app.use('/profile', profileRouter);
 
 app.all('*', (req, res, next) => {
   next(new Error('NOT_FOUND'));

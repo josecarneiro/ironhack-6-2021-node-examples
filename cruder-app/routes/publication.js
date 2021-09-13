@@ -7,7 +7,7 @@ const upload = require('./../middleware/file-upload');
 const publicationRouter = express.Router();
 
 publicationRouter.get('/create', routeGuardMiddleware, (req, res) => {
-  res.render('publish');
+  res.render('publication/create');
 });
 
 publicationRouter.post(
@@ -47,7 +47,13 @@ publicationRouter.get('/:id', (req, res, next) => {
       return Comment.find({ publication: id }).populate('creator');
     })
     .then((comments) => {
-      res.render('publication-detail', { publication, comments });
+      const ownPublication =
+        req.user && String(req.user._id) === String(publication.creator._id);
+      res.render('publication/detail', {
+        publication,
+        comments,
+        ownPublication
+      });
     })
     .catch((error) => {
       next(error);
@@ -58,7 +64,7 @@ publicationRouter.get('/:id/edit', routeGuardMiddleware, (req, res, next) => {
   const id = req.params.id;
   Publication.findById(id)
     .then((publication) => {
-      res.render('publication-edit', { publication });
+      res.render('publication/edit', { publication });
     })
     .catch((error) => {
       next(error);

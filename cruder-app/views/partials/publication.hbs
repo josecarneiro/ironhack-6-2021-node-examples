@@ -8,9 +8,9 @@
     </form>
   </aside>
   {{#if image}}
-    <figure>
-      <img src='{{image}}' alt='{{title}}' />
-    </figure>
+  <figure>
+    <img src='{{image}}' alt='{{title}}' />
+  </figure>
   {{/if}}
   <section>
     <a href='/publication/{{_id}}'>
@@ -19,5 +19,6 @@
     </a>
     <br />
     <a href='{{url}}' target='_blank'>Visit Resource</a>
+    <span>{{{ date publishingDate }}}</span>
   </section>
 </article>

@@ -1,0 +1,12 @@
+<form method='POST' enctype="multipart/form-data">
+  <label for='input-name'>Your Name</label>
+  <input id='input-name' type='text' name='name' placeholder='Your Name' value="{{ user.name }}" required />
+
+  <label for='input-email'>Your Email</label>
+  <input id='input-email' type='email' name='email' placeholder='Your Email' value="{{ user.email }}" required />
+
+  <label for='input-picture'>Profile Picture</label>
+  <input id='input-picture' type='file' name='picture' accept='image/*' />
+
+  <button>Edit Profile</button>
+</form>
